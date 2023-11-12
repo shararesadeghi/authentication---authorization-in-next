@@ -9,7 +9,7 @@ async function handler(req, res) {
   } catch (err) {
     console.log(err);
     res
-      .staus(500)
+      .status(500)
       .json({ status: "failed", message: "Error in connecting to DB" });
   }
 
@@ -22,7 +22,7 @@ async function handler(req, res) {
   const existingUser = await User.findOne({ email: email });
   if (existingUser) {
     return res
-      .staus(422)
+      .status(422)
       .json({ status: "failed", message: "User existed already" });
   }
 
@@ -30,6 +30,6 @@ async function handler(req, res) {
 
   const newUser = await User.create({ email: email, password: hashedPassword });
   console.log(newUser);
-  res.staus(201).json({ status: "success", message: "User created" });
+  res.status(201).json({ status: "success", message: "User created" });
 }
 export default handler;
