@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import {useRouter} from 'next/router';
 
-const Signup = () => {
+const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const signUpHandler = async () => {
-    const res = await fetch("/api/auth/signup", {
+  const signInHandler = async () => {
+    const res = await fetch("/api/auth/signin", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    if(data.status === "success") router.push("/signin");
+    if (data.status === "success") router.push("/dashboard");
   };
   return (
     <div>
-      <h4>Registeration Form</h4>
+      <h4>Login Form</h4>
       <input
         type="text"
         placeholder="Email"
@@ -30,9 +30,9 @@ const Signup = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={signUpHandler}>Sign Up</button>
+      <button onClick={signInHandler}>Login</button>
     </div>
   );
 };
 
-export default Signup;
+export default SignIn;
