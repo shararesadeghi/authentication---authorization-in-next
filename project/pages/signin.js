@@ -1,10 +1,18 @@
-import React, { useState } from "react";
-import {useRouter} from 'next/router';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/user")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") window.location.href = "/dashboard";
+      });
+  }, []);
 
   const signInHandler = async () => {
     const res = await fetch("/api/auth/signin", {

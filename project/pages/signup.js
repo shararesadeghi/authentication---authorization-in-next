@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {useRouter} from 'next/router';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/user")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") window.location.href = "/dashboard";
+      });
+  }, []);
 
   const signUpHandler = async () => {
     const res = await fetch("/api/auth/signup", {
